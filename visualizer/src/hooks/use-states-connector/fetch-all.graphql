@@ -1,0 +1,16 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 commercetools GmbH and the commercetools-labs contributors
+# Freely available, AS IS and UNSUPPORTED. See LICENSE.
+
+#import "./fragments/state-fragment.graphql"
+
+query FetchStates($limit: Int!, $offset: Int!, $sort: [String!], $where: String) {
+  states(limit: $limit, offset: $offset, sort: $sort, where: $where) {
+    total
+    count
+    offset
+    results {
+      ...StateFragment
+    }
+  }
+}

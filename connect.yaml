@@ -1,0 +1,22 @@
+deployAs:
+  - name: visualizer
+    applicationType: merchant-center-custom-application
+    configuration:
+      standardConfiguration:
+        - key: CUSTOM_APPLICATION_ID
+          description: >-
+            Application ID of the Custom Application you registered in the Merchant Center
+            (Organization settings > Custom Applications). Shown on the application's detail page.
+          required: true
+        - key: ENTRY_POINT_URI_PATH
+          description: >-
+            Entry point URI path of the registered Custom Application; the app is served at
+            https://<merchant-center-host>/<project-key>/<this value>. Unique per cloud region.
+          required: true
+          default: 'visualizer'
+        - key: CLOUD_IDENTIFIER
+          description: >-
+            Merchant Center region of your commercetools project. One of: gcp-au, gcp-eu, gcp-us,
+            aws-eu, aws-us. Deploy the connector in the matching Connect region.
+          required: true
+          default: 'gcp-eu'

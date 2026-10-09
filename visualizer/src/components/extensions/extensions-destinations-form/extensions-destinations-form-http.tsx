@@ -1,0 +1,160 @@
+import { useFormikContext } from 'formik';
+import { useIntl } from 'react-intl';
+import { FC } from 'react';
+import { FormField, Select, Stack, TextInput } from '@commercetools/nimbus';
+import messages from './messages';
+import formMessages from '../extensions-form/messages';
+import {
+  DestinationHttpAuthenticationName,
+  TFormValues,
+} from '../extensions-form/extensions-form';
+
+type Props = {
+  isReadOnly?: boolean;
+};
+
+const ExtensionsDestinationsFormHttp: FC<Props> = ({ isReadOnly }) => {
+  const intl = useIntl();
+  const formik = useFormikContext<TFormValues>();
+  return (
+    <Stack direction="column" gap="400">
+      <FormField.Root
+        isRequired
+        isReadOnly={isReadOnly}
+        isInvalid={Boolean(
+          formik.touched.destinationHttpUrl && formik.errors.destinationHttpUrl
+        )}
+      >
+        <FormField.Label>
+          {intl.formatMessage(messages.destinationHttpUrl)}
+        </FormField.Label>
+        <FormField.Input>
+          <TextInput
+            aria-label={intl.formatMessage(messages.destinationHttpUrl)}
+            value={formik.values.destinationHttpUrl || ''}
+            isReadOnly={isReadOnly}
+            onChange={(value) =>
+              formik.setFieldValue('destinationHttpUrl', value)
+            }
+            onBlur={() => formik.setFieldTouched('destinationHttpUrl', true)}
+            width={'full'}
+          />
+        </FormField.Input>
+        <FormField.Error>
+          {formik.touched.destinationHttpUrl && formik.errors.destinationHttpUrl
+            ? intl.formatMessage(formMessages.requiredFieldError)
+            : null}
+        </FormField.Error>
+      </FormField.Root>
+      <FormField.Root isReadOnly={isReadOnly}>
+        <FormField.Label>
+          {intl.formatMessage(messages.destinationHttpAuthentication)}
+        </FormField.Label>
+        <FormField.Input>
+          <Select.Root
+            aria-label={intl.formatMessage(
+              messages.destinationHttpAuthentication
+            )}
+            isClearable
+            isDisabled={isReadOnly}
+            value={formik.values.destinationHttpAuthenticationName || ''}
+            onChange={(value) =>
+              formik.setFieldValue(
+                'destinationHttpAuthenticationName',
+                value as DestinationHttpAuthenticationName
+              )
+            }
+            onBlur={() =>
+              formik.setFieldTouched('destinationHttpAuthenticationName', true)
+            }
+            width={'full'}
+          >
+            <Select.Options>
+              <Select.Option id="AzureFunctions">
+                {intl.formatMessage(
+                  messages.destinationHttpAuthenticationAzureFunctions
+                )}
+              </Select.Option>
+              <Select.Option id="AuthorizationHeader">
+                {intl.formatMessage(
+                  messages.destinationHttpAuthenticationAuthorizationHeader
+                )}
+              </Select.Option>
+            </Select.Options>
+          </Select.Root>
+        </FormField.Input>
+      </FormField.Root>
+      {formik.values.destinationHttpAuthenticationName ===
+        'AuthorizationHeader' && (
+        <FormField.Root isReadOnly={isReadOnly}>
+          <FormField.Label>
+            {intl.formatMessage(
+              messages.destinationHttpAuthorizationHeaderFieldLabel
+            )}
+          </FormField.Label>
+          <FormField.Input>
+            <TextInput
+              aria-label={intl.formatMessage(
+                messages.destinationHttpAuthorizationHeaderFieldLabel
+              )}
+              value={
+                formik.values
+                  .destinationHttpAuthenticationAuthorizationHeaderValue || ''
+              }
+              isReadOnly={isReadOnly}
+              onChange={(value) =>
+                formik.setFieldValue(
+                  'destinationHttpAuthenticationAuthorizationHeaderValue',
+                  value
+                )
+              }
+              onBlur={() =>
+                formik.setFieldTouched(
+                  'destinationHttpAuthenticationAuthorizationHeaderValue',
+                  true
+                )
+              }
+              width={'full'}
+            />
+          </FormField.Input>
+        </FormField.Root>
+      )}
+      {formik.values.destinationHttpAuthenticationName === 'AzureFunctions' && (
+        <FormField.Root isReadOnly={isReadOnly}>
+          <FormField.Label>
+            {intl.formatMessage(
+              messages.destinationHttpAuthorizationKeyFieldLabel
+            )}
+          </FormField.Label>
+          <FormField.Input>
+            <TextInput
+              aria-label={intl.formatMessage(
+                messages.destinationHttpAuthorizationKeyFieldLabel
+              )}
+              value={
+                formik.values.destinationHttpAuthenticationAuthorizationKey ||
+                ''
+              }
+              isReadOnly={isReadOnly}
+              onChange={(value) =>
+                formik.setFieldValue(
+                  'destinationHttpAuthenticationAuthorizationKey',
+                  value
+                )
+              }
+              onBlur={() =>
+                formik.setFieldTouched(
+                  'destinationHttpAuthenticationAuthorizationKey',
+                  true
+                )
+              }
+              width={'full'}
+            />
+          </FormField.Input>
+        </FormField.Root>
+      )}
+    </Stack>
+  );
+};
+
+export default ExtensionsDestinationsFormHttp;
