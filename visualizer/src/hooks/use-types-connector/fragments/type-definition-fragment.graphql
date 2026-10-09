@@ -1,0 +1,33 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 commercetools GmbH and the commercetools-labs contributors
+# Freely available, AS IS and UNSUPPORTED. See LICENSE.
+
+#import "./type-definition-base-fields-fragment.graphql"
+
+fragment TypeDefinitionFragment on TypeDefinition {
+  ...TypeDefinitionBaseFieldsFragment
+  version
+  fieldDefinitions {
+    name
+    required
+    inputHint
+    labelAllLocales {
+      locale
+      value
+    }
+    type {
+      name
+      ... on ReferenceType {
+        referenceTypeId
+      }
+      ... on SetType {
+        elementType {
+          name
+          ... on ReferenceType {
+            referenceTypeId
+          }
+        }
+      }
+    }
+  }
+}

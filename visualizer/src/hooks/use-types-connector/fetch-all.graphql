@@ -1,0 +1,19 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 commercetools GmbH and the commercetools-labs contributors
+# Freely available, AS IS and UNSUPPORTED. See LICENSE.
+
+#import "./fragments/type-definition-base-fields-fragment.graphql"
+
+query FetchTypes($limit: Int!, $offset: Int!, $sort: [String!]) {
+  typeDefinitions(limit: $limit, offset: $offset, sort: $sort) {
+    total
+    count
+    offset
+    results {
+      ...TypeDefinitionBaseFieldsFragment
+      fieldDefinitions {
+        name
+      }
+    }
+  }
+}

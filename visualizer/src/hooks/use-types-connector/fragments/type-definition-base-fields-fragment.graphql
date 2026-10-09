@@ -1,0 +1,31 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 commercetools GmbH and the commercetools-labs contributors
+# Freely available, AS IS and UNSUPPORTED. See LICENSE.
+
+fragment TypeDefinitionBaseFieldsFragment on TypeDefinition {
+  id
+  nameAllLocales {
+    locale
+    value
+  }
+  descriptionAllLocales {
+    locale
+    value
+  }
+  key
+  resourceTypeIds
+  createdAt
+  createdBy {
+    isPlatformClient
+    externalUserId
+    anonymousId
+    clientId
+  }
+  lastModifiedAt
+  lastModifiedBy {
+    isPlatformClient
+    externalUserId
+    anonymousId
+    clientId
+  }
+}

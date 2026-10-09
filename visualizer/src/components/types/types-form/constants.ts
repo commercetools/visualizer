@@ -1,0 +1,48 @@
+/*
+ * SPDX-License-Identifier: MIT
+ * Copyright (c) 2026 commercetools GmbH and the commercetools-labs contributors
+ * Freely available, AS IS and UNSUPPORTED. See LICENSE.
+ */
+
+// Allowed `resourceTypeIds` for a Type — keep in sync with `ResourceTypeId`:
+// https://docs.commercetools.com/api/projects/types#resourcetypeid
+export const RESOURCE_TYPES = [
+  'address',
+  'asset',
+  'approval-flow',
+  'approval-rule',
+  'associate-role',
+  'business-unit',
+  'cart-discount',
+  'category',
+  'channel',
+  'customer',
+  'customer-group',
+  'custom-line-item',
+  'discount-code',
+  'inventory-entry',
+  'line-item',
+  'order',
+  'order-edit',
+  'order-delivery',
+  'order-parcel',
+  'order-return-item',
+  'payment',
+  'payment-interface-interaction',
+  'payment-method',
+  'payment-method-info',
+  'product-price',
+  'product-selection',
+  'product-tailoring',
+  'quote',
+  'reservation',
+  'review',
+  'recurring-order',
+  'shipping',
+  'shipping-method',
+  'shopping-list',
+  'shopping-list-text-line-item',
+  'standalone-price',
+  'store',
+  'transaction',
+];

@@ -1,0 +1,272 @@
+/*
+ * SPDX-License-Identifier: MIT
+ * Copyright (c) 2026 commercetools GmbH and the commercetools-labs contributors
+ * Freely available, AS IS and UNSUPPORTED. See LICENSE.
+ */
+
+import {
+  TEnumType,
+  TEnumValueInput,
+  TFieldDefinition,
+  TFieldDefinitionInput,
+  TFieldType,
+  TFieldTypeEnumTypeDraft,
+  TFieldTypeInput,
+  TFieldTypeLocalizedEnumTypeDraft,
+  TLocalizedEnumType,
+  TLocalizedEnumValueInput,
+  TLocalizedStringItemInputType,
+  TReferenceType,
+  TSetType,
+  TTextInputHint,
+} from '../../../types/generated/ctp';
+import { PickedFieldDefinition } from '../../../hooks';
+import {
+  LocalizedField,
+  type LocalizedString as TLocalizedString,
+} from '@commercetools/nimbus';
+import {
+  transformLocalizedFieldToLocalizedString,
+  transformLocalizedStringToLocalizedField,
+} from '@commercetools-frontend/l10n';
+import { Fields } from './constants';
+import {
+  Item,
+  LocalizedString,
+} from '../field-definition-input-for-enum/constants';
+
+// `LocalizedField.omitEmptyTranslations` returns Nimbus' `LocalizedString`
+// (values `string | undefined`); narrow to `Record<string, string>` for
+// `@commercetools-frontend/l10n` after dropping empty translations.
+const omitEmptyTranslations = (
+  value: TLocalizedString
+): Record<string, string> =>
+  Object.fromEntries(
+    Object.entries(LocalizedField.omitEmptyTranslations(value)).filter(
+      ([, translation]) => translation != null
+    )
+  ) as Record<string, string>;
+
+export type TFormValues = {
+  label: TLocalizedString;
+  name: string;
+  required?: boolean;
+  isMultiLine: boolean;
+  isLocalized: boolean;
+  isSet: boolean;
+  typeName: Fields;
+  referenceTypeId: string;
+  format: 'date' | 'datetime' | 'time';
+  enumValues: Array<Item> | undefined;
+};
+export const fromFormValuesToTFieldDefinitionInput = (
+  values: TFormValues
+): TFieldDefinitionInput => {
+  let type: TFieldTypeInput = { Boolean: {} };
+  switch (values.typeName) {
+    case 'Boolean': {
+      type = { Boolean: {} };
+      break;
+    }
+    case 'Date': {
+      if (values.format === 'date') {
+        type = { Date: {} };
+      } else if (values.format === 'datetime') {
+        type = { DateTime: {} };
+      } else if (values.format === 'time') {
+        type = { Time: {} };
+      }
+      break;
+    }
+    case 'Enum': {
+      if (values.isLocalized) {
+        const newValue: Array<TLocalizedEnumValueInput> =
+          values.enumValues
+            ?.filter((value) => value.key && value.key.trim().length > 0)
+            .map((value) => {
+              const label: Array<TLocalizedStringItemInputType> =
+                transformLocalizedStringToLocalizedField(
+                  omitEmptyTranslations(value.label as LocalizedString)
+                ) || [];
+              return { key: value.key || '', label: label };
+            }) || [];
+        type = { LocalizedEnum: { values: newValue } };
+      } else {
+        const newValue: Array<TEnumValueInput> =
+          values.enumValues
+            ?.filter(
+              (value) => value.key && value.key.trim().length > 0 && value.label
+            )
+            .map((value) => {
+              const label = value.label as string | undefined;
+              return { key: value.key || '', label: label || '' };
+            }) || [];
+        type = { Enum: { values: newValue } };
+      }
+      break;
+    }
+    case 'Money': {
+      type = { Money: {} };
+      break;
+    }
+    case 'Number': {
+      type = { Number: {} };
+      break;
+    }
+    case 'Reference': {
+      type = {
+        Reference: {
+          referenceTypeId: values.referenceTypeId,
+        },
+      };
+      break;
+    }
+    case 'String': {
+      if (values.isLocalized) {
+        type = { LocalizedString: {} };
+      } else {
+        type = { String: {} };
+      }
+      break;
+    }
+  }
+  if (values.isSet) {
+    type = { Set: { elementType: type } };
+  }
+
+  const actionDraft: TFieldDefinitionInput = {
+    name: values.name,
+    required: values.required || false,
+    inputHint: values.isMultiLine
+      ? TTextInputHint.MultiLine
+      : TTextInputHint.SingleLine,
+    type: type,
+    label: transformLocalizedStringToLocalizedField(
+      omitEmptyTranslations(values.label)
+    ),
+  };
+  return actionDraft;
+};
+
+// `calculateFieldDefinitionUpdateActions` diffs against the fetched
+// `TFieldDefinition` (output shape, `type: TFieldType` with a `name`
+// discriminator), so the edited value must be adapted from the mutation-input
+// shape (`TFieldDefinitionInput`, `type: TFieldTypeInput` — a one-of object
+// keyed by type name) into that same output-equivalent shape. Only
+// Enum/LocalizedEnum values are read by the diff (field type itself is
+// immutable after create), so other type names don't need their
+// type-specific fields reconstructed.
+export const toPickedFieldDefinition = (
+  input: TFieldDefinitionInput
+): PickedFieldDefinition => {
+  const [typeName] = Object.keys(input.type) as Array<keyof TFieldTypeInput>;
+  let type: TFieldType = { name: typeName };
+  if (typeName === 'Enum') {
+    const { values } = input.type.Enum as TFieldTypeEnumTypeDraft;
+    type = { name: 'Enum', values } as TEnumType;
+  } else if (typeName === 'LocalizedEnum') {
+    const { values } = input.type
+      .LocalizedEnum as TFieldTypeLocalizedEnumTypeDraft;
+    type = {
+      name: 'LocalizedEnum',
+      values: values.map((value) => ({
+        key: value.key,
+        labelAllLocales: value.label,
+      })),
+    } as TLocalizedEnumType;
+  }
+
+  return {
+    name: input.name,
+    labelAllLocales: input.label,
+    inputHint: input.inputHint ?? undefined,
+    type,
+  };
+};
+
+export const initialValuesFromFieldDefinition = (
+  fieldDefinition: TFieldDefinition | undefined,
+  projectLanguages: Array<string>
+): TFormValues => {
+  let isLocalized = false;
+  let isSet = false;
+  let typeName = fieldDefinition?.type?.name || '';
+  let format: 'date' | 'datetime' | 'time' = 'date';
+  let enumValues: Array<Item> = [];
+  // For a Set, the element type (not the outer SetType) carries the
+  // type-specific fields (referenceTypeId, values, ...).
+  let actualType = fieldDefinition?.type;
+
+  if (fieldDefinition?.type?.name) {
+    if (fieldDefinition?.type?.name === 'Set') {
+      const setType = fieldDefinition?.type as TSetType;
+      isSet = true;
+      typeName = setType.elementType.name;
+      actualType = setType.elementType;
+    }
+    if (typeName === 'DateTime') {
+      format = 'datetime';
+      typeName = 'Date';
+    } else if (typeName === 'Time') {
+      format = 'time';
+      typeName = 'Date';
+    } else if (typeName === 'Date') {
+      format = 'date';
+      typeName = 'Date';
+    } else if (typeName === 'LocalizedEnum') {
+      isLocalized = true;
+      typeName = 'Enum';
+      let type = actualType as TLocalizedEnumType;
+      enumValues = type.values.map(
+        (value): Item => ({
+          // A persisted value's key is already unique/non-empty (enforced
+          // server-side), so it's a stable, deterministic `_uid` here —
+          // unlike crypto.randomUUID(), which would make this function
+          // return a value that's never `isEqual` to its own prior result
+          // even when the underlying data hasn't changed, defeating
+          // Formik's `enableReinitialize` deep-equality check and
+          // resetting the form on unrelated re-renders.
+          _uid: value.key,
+          key: value.key,
+          label: value.labelAllLocales.reduce(
+            (a, v) => ({ ...a, [v.locale]: v.value }),
+            {}
+          ),
+        })
+      );
+    } else if (typeName === 'Enum') {
+      let type = actualType as TEnumType;
+      enumValues = type.values.map(
+        (value): Item => ({
+          _uid: value.key,
+          key: value.key,
+          label: value.label,
+        })
+      );
+    } else if (typeName === 'LocalizedString') {
+      isLocalized = true;
+      typeName = 'String';
+    }
+  }
+
+  return {
+    label: LocalizedField.createLocalizedString(
+      projectLanguages,
+      transformLocalizedFieldToLocalizedString(
+        fieldDefinition?.labelAllLocales ?? []
+      ) ?? {}
+    ),
+    name: fieldDefinition?.name || '',
+    required: fieldDefinition?.required ?? false,
+    isMultiLine: (fieldDefinition?.inputHint || 'SingleLine') === 'MultiLine',
+    format: format,
+    isLocalized: isLocalized,
+    typeName: typeName as Fields,
+    referenceTypeId:
+      typeName === 'Reference'
+        ? (actualType as TReferenceType).referenceTypeId
+        : '',
+    enumValues: enumValues,
+    isSet: isSet,
+  };
+};

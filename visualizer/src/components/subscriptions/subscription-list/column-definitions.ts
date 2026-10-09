@@ -1,0 +1,67 @@
+/*
+ * SPDX-License-Identifier: MIT
+ * Copyright (c) 2026 commercetools GmbH and the commercetools-labs contributors
+ * Freely available, AS IS and UNSUPPORTED. See LICENSE.
+ */
+
+import type { DataTableColumnItem } from '@commercetools/nimbus';
+import type { IntlShape } from 'react-intl';
+import { TCommercetoolsSubscription } from '../../../types/generated/ctp';
+import destinationMessages from '../subscription-destination-type-form/messages';
+import messages from './messages';
+
+// API destination type -> message key, for the types whose message key doesn't
+// follow the plain `destination<Type>` pattern.
+const destinationMessageKeys: Record<string, keyof typeof destinationMessages> =
+  {
+    EventBridge: 'destinationAWSEventBridge',
+    EventGrid: 'destinationAzureEventGrid',
+  };
+
+type TCreateColumnDefinitions = {
+  intl: IntlShape;
+};
+
+const createColumnDefinitions = ({
+  intl,
+}: TCreateColumnDefinitions): Array<
+  DataTableColumnItem<TCommercetoolsSubscription>
+> => [
+  {
+    id: 'key',
+    header: intl.formatMessage(messages.columnKey),
+    isSortable: true,
+    isRowHeader: true,
+    accessor: (row) => row.key,
+  },
+  {
+    id: 'version',
+    header: intl.formatMessage(messages.columnVersion),
+    accessor: (row) => row.version,
+  },
+  {
+    id: 'createdAt',
+    header: intl.formatMessage(messages.columnCreatedAt),
+    accessor: (row) =>
+      `${intl.formatDate(row.createdAt)} ${intl.formatTime(row.createdAt)}`,
+  },
+  {
+    id: 'destinationType',
+    header: intl.formatMessage(messages.columnDestinationType),
+    accessor: (row) => {
+      try {
+        return intl.formatMessage(
+          destinationMessages[
+            destinationMessageKeys[row.destination.type] ??
+              (('destination' +
+                row.destination.type) as keyof typeof destinationMessages)
+          ]
+        );
+      } catch {
+        return row.destination.type;
+      }
+    },
+  },
+];
+
+export default createColumnDefinitions;

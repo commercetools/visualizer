@@ -1,0 +1,143 @@
+/*
+ * SPDX-License-Identifier: MIT
+ * Copyright (c) 2026 commercetools GmbH and the commercetools-labs contributors
+ * Freely available, AS IS and UNSUPPORTED. See LICENSE.
+ */
+
+import { defineMessages } from 'react-intl';
+
+export default defineMessages({
+  modalTitle: {
+    id: 'FieldDefinitions.Details.modalTitle',
+    description: 'The title of the modal for field definition (details)',
+    defaultMessage: 'Field Definition Details',
+  },
+  updateButton: {
+    id: 'FieldDefinitions.Details.updateButton',
+    description: 'Submit button label',
+    defaultMessage: 'Update Field Definition',
+  },
+  newButton: {
+    id: 'FieldDefinitions.Details.newButton',
+    description: 'Submit button label',
+    defaultMessage: 'Create Field Definition',
+  },
+  revert: {
+    id: 'FieldDefinitions.Details.revert',
+    description: 'Revert Changes',
+    defaultMessage: 'Revert Changes',
+  },
+  requiredFieldError: {
+    id: 'FieldDefinitions.form.error.required',
+    description: 'The error message for required fields',
+    defaultMessage: 'This field is required. Provide a value.',
+  },
+  nameTypeConflict: {
+    id: 'FieldDefinition.form.nameTypeConflict',
+    description: 'Error when a field of this name exists with another type',
+    defaultMessage:
+      'A field named "{name}" already exists on the type "{typeKey}", which applies to the same resource type, with the type {existingType}. Fields with the same name must have the same type.',
+  },
+  nameTitle: {
+    id: 'FieldForm.name.title',
+    description: 'Title for fieldDefinitions name field',
+    defaultMessage: 'Field Name',
+  },
+  labelTitle: {
+    id: 'FieldForm.label.title',
+    description: 'Title for fieldDefinitions label field',
+    defaultMessage: 'Label',
+  },
+  typeTitle: {
+    id: 'FieldForm.type.title',
+    description: 'Title for fieldDefinitions type field',
+    defaultMessage: 'Type',
+  },
+  inputHintTitle: {
+    id: 'FieldForm.inputHint.title',
+    description: 'Title for fieldDefinitions inputHint field',
+    defaultMessage:
+      'Allow multiple line field (an expandable field recommended for longer texts)',
+  },
+  requiredTitle: {
+    id: 'FieldForm.required.title',
+    description: 'Title for fieldDefinitions required field',
+    defaultMessage: 'Required: make attribute mandatory (indicated by *)',
+  },
+  setTitle: {
+    id: 'FieldForm.isSet.title',
+    description: 'Title for fieldDefinitions isSet field',
+    defaultMessage: 'Create a set with this type',
+  },
+  referenceTitle: {
+    id: 'FieldForm.reference.title',
+    description: 'Title for fieldDefinitions reference field',
+    defaultMessage: 'Reference Type',
+  },
+  fieldDefinitionUpdated: {
+    id: 'FieldForm.updated.title',
+    description: 'Message for fieldDefinitions update action',
+    defaultMessage: 'Field Definition updated',
+  },
+  localizedLabel: {
+    id: 'ProjectSettings.ProductTypes.Details.localizedLabel',
+    description: 'Text of label to indicate localized fields',
+    defaultMessage: 'Localized',
+  },
+  optionDate: {
+    id: 'ProjectSettings.ProductTypes.Details.AttributeDefinition.Details.optionDate',
+    description: '',
+    defaultMessage: 'Date',
+  },
+  optionTime: {
+    id: 'ProjectSettings.ProductTypes.Details.AttributeDefinition.Details.optionTime',
+    description: '',
+    defaultMessage: 'Time',
+  },
+  optionDateTime: {
+    id: 'ProjectSettings.ProductTypes.Details.AttributeDefinition.Details.optionDateTime',
+    description: '',
+    defaultMessage: 'Date and Time',
+  },
+  setCannotBeRequiredTooltip: {
+    id: 'ProjectSettings.ProductTypes.Details.AttributeDefinition.Details.setCannotBeRequiredTooltip',
+    description: 'Label for disabled isSet checkbox',
+    defaultMessage:
+      'A set cannot be required. Please deselect the required setting to make this attribute a set.',
+  },
+  typeBoolean: {
+    id: 'ProjectSettings.ProductTypes.Details.AttributeDefinition.Details.typeBoolean',
+    description: '',
+    defaultMessage: 'Yes / No (boolean)',
+  },
+  typeEnum: {
+    id: 'ProjectSettings.ProductTypes.Details.AttributeDefinition.Details.typeEnum',
+    description: '',
+    defaultMessage: 'List (enum)',
+  },
+  typeText: {
+    id: 'ProjectSettings.ProductTypes.Details.AttributeDefinition.Details.typeText',
+    description: '',
+    defaultMessage: 'Text',
+  },
+  typeNumber: {
+    id: 'ProjectSettings.ProductTypes.Details.AttributeDefinition.Details.typeNumber',
+    description: '',
+    defaultMessage: 'Number',
+  },
+  typeMoney: {
+    id: 'ProjectSettings.ProductTypes.Details.AttributeDefinition.Details.typeMoney',
+    description: '',
+    defaultMessage: 'Money',
+  },
+  typeDate: {
+    id: 'ProjectSettings.ProductTypes.Details.AttributeDefinition.Details.typeDate',
+    description: '',
+    defaultMessage: 'Date/Time',
+  },
+  typeReference: {
+    id: 'ProjectSettings.ProductTypes.Details.AttributeDefinition.Details.typeReference',
+    description: '',
+    defaultMessage: 'Reference',
+  },
+});
