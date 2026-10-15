@@ -1,9 +1,3 @@
-/*
- * SPDX-License-Identifier: MIT
- * Copyright (c) 2026 commercetools GmbH and the commercetools-labs contributors
- * Freely available, AS IS and UNSUPPORTED. See LICENSE.
- */
-
 import { FC, useEffect, useMemo, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { Switch, useHistory, useRouteMatch } from 'react-router-dom';

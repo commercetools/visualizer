@@ -1,11 +1,24 @@
 # commercetools Visualizer
 
-> **UNSUPPORTED - commercetools-labs project.** This repository is reference code, freely available under the
-> [MIT licence](./LICENSE), provided **AS IS** and **unsupported**: there is no support, SLA, roadmap or
-> guarantee of maintenance. Use it as a starting point and take responsibility for what you run. See
-> [SUPPORT.md](./SUPPORT.md).
+> **commercetools-labs reference code.** Freely available under the [MIT license](./LICENSE), shared
+> as-is and not supported by commercetools. See [SUPPORT.md](./SUPPORT.md).
 
-The commercetools Visualizer is a [Merchant Center custom application](https://docs.commercetools.com/merchant-center-customizations/custom-applications) to view and edit commercetools resources that have no out-of-the-box Merchant Center UI, and to visualize how your data fits together.
+**See and edit the commercetools resources the Merchant Center doesn't show, and map how your data fits together.**
+
+Some of the resources that hold a project together, such as custom Types, States, Subscriptions,
+API Extensions and Custom Objects, have no Merchant Center screen. Teams end up working with them
+through raw API calls, and it's hard to see how Business Units, Stores, Product Selections and the
+rest relate.
+
+The Visualizer is a [Merchant Center custom application](https://docs.commercetools.com/merchant-center-customizations/custom-applications)
+for the developers, solution architects and project owners who work with that setup. It lets you
+browse and edit those resources in forms, see State transitions as a flow diagram, draw Product
+Types and Custom Object schemas as an entity diagram, and drill into your organisation structure
+as a treemap.
+
+When it works, you can understand and adjust a project's setup from one place, without leaving
+the Merchant Center.
+
 
 ## Features
 

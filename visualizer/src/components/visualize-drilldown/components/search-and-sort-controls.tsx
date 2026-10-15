@@ -1,9 +1,3 @@
-/*
- * SPDX-License-Identifier: MIT
- * Copyright (c) 2026 commercetools GmbH and the commercetools-labs contributors
- * Freely available, AS IS and UNSUPPORTED. See LICENSE.
- */
-
 import { useEffect, useState, type FC } from 'react';
 import { useIntl } from 'react-intl';
 import { SearchInput, Stack, Text, ToggleButton } from '@commercetools/nimbus';

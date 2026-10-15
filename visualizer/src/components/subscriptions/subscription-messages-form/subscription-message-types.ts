@@ -1,9 +1,3 @@
-/*
- * SPDX-License-Identifier: MIT
- * Copyright (c) 2026 commercetools GmbH and the commercetools-labs contributors
- * Freely available, AS IS and UNSUPPORTED. See LICENSE.
- */
-
 // Message types a Subscription can listen to, grouped by the
 // `MessageSubscriptionResourceTypeId` they are subscribed under. Derived from the
 // Messages reference (https://docs.commercetools.com/api/projects/messages), where each

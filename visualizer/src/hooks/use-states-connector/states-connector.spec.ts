@@ -1,9 +1,3 @@
-/*
- * SPDX-License-Identifier: MIT
- * Copyright (c) 2026 commercetools GmbH and the commercetools-labs contributors
- * Freely available, AS IS and UNSUPPORTED. See LICENSE.
- */
-
 import { TStateType } from '../../types/generated/ctp';
 import { calculateStateUpdateActions } from './states-connector';
 import { PickedState } from './conversion';

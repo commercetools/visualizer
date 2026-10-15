@@ -1,9 +1,3 @@
-/*
- * SPDX-License-Identifier: MIT
- * Copyright (c) 2026 commercetools GmbH and the commercetools-labs contributors
- * Freely available, AS IS and UNSUPPORTED. See LICENSE.
- */
-
 import { FC } from 'react';
 import { useField } from 'formik';
 import { Checkbox, Grid, Heading, Stack } from '@commercetools/nimbus';

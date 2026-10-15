@@ -1,9 +1,3 @@
-/*
- * SPDX-License-Identifier: MIT
- * Copyright (c) 2026 commercetools GmbH and the commercetools-labs contributors
- * Freely available, AS IS and UNSUPPORTED. See LICENSE.
- */
-
 // Reordering the field definitions of a Type. The new order is staged in the type form like a
 // removal and only sent on Save, as `changeFieldDefinitionOrder` (see
 // `calculateFieldDefinitionOrderActions` in use-types-connector).

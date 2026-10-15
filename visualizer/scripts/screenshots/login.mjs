@@ -1,9 +1,3 @@
-/*
- * SPDX-License-Identifier: MIT
- * Copyright (c) 2026 commercetools GmbH and the commercetools-labs contributors
- * Freely available, AS IS and UNSUPPORTED. See LICENSE.
- */
-
 // Opens a headed browser against the local dev server so you can log into the
 // Merchant Center by hand, then saves the resulting session (cookies + localStorage)
 // to auth-state.json for capture.mjs to reuse headlessly.

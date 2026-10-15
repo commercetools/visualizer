@@ -1,9 +1,3 @@
-/*
- * SPDX-License-Identifier: MIT
- * Copyright (c) 2026 commercetools GmbH and the commercetools-labs contributors
- * Freely available, AS IS and UNSUPPORTED. See LICENSE.
- */
-
 // Shared across resource keys and Type field-definition names — see
 // specs/README.md's "Key validation (shared rule)" convention: 2–256
 // characters, alphanumerics/underscores/hyphens only, trimmed before

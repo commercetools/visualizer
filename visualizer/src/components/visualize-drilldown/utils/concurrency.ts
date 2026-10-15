@@ -1,9 +1,3 @@
-/*
- * SPDX-License-Identifier: MIT
- * Copyright (c) 2026 commercetools GmbH and the commercetools-labs contributors
- * Freely available, AS IS and UNSUPPORTED. See LICENSE.
- */
-
 /**
  * Runs `tasks` with at most `limit` in flight. `onResult(index, value)` is
  * called for each fulfilled task; a rejected task is skipped (the others keep

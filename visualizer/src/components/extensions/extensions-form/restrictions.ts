@@ -1,9 +1,3 @@
-/*
- * SPDX-License-Identifier: MIT
- * Copyright (c) 2026 commercetools GmbH and the commercetools-labs contributors
- * Freely available, AS IS and UNSUPPORTED. See LICENSE.
- */
-
 // Restrictions the commercetools API puts on an Extension, validated client-side so the user
 // gets feedback before a round trip (the API stays authoritative and its errors are shown).
 //

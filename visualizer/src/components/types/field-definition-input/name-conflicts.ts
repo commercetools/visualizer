@@ -1,9 +1,3 @@
-/*
- * SPDX-License-Identifier: MIT
- * Copyright (c) 2026 commercetools GmbH and the commercetools-labs contributors
- * Freely available, AS IS and UNSUPPORTED. See LICENSE.
- */
-
 // The API requires that a field definition with the same `name` on another Type for the same
 // resource type has the same type:
 // https://docs.commercetools.com/api/projects/types#fielddefinition

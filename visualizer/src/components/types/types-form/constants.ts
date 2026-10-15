@@ -1,9 +1,3 @@
-/*
- * SPDX-License-Identifier: MIT
- * Copyright (c) 2026 commercetools GmbH and the commercetools-labs contributors
- * Freely available, AS IS and UNSUPPORTED. See LICENSE.
- */
-
 // Allowed `resourceTypeIds` for a Type — keep in sync with `ResourceTypeId`:
 // https://docs.commercetools.com/api/projects/types#resourcetypeid
 export const RESOURCE_TYPES = [

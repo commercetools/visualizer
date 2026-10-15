@@ -1,9 +1,3 @@
-/*
- * SPDX-License-Identifier: MIT
- * Copyright (c) 2026 commercetools GmbH and the commercetools-labs contributors
- * Freely available, AS IS and UNSUPPORTED. See LICENSE.
- */
-
 import { createIntl, createIntlCache } from 'react-intl';
 import type { TExtension } from '../../../types/generated/ctp';
 import createColumnDefinitions from './column-definitions';

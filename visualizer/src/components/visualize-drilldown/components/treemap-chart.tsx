@@ -1,9 +1,3 @@
-/*
- * SPDX-License-Identifier: MIT
- * Copyright (c) 2026 commercetools GmbH and the commercetools-labs contributors
- * Freely available, AS IS and UNSUPPORTED. See LICENSE.
- */
-
 import { useMemo } from 'react';
 import { Treemap, hierarchy, treemapSquarify } from '@visx/hierarchy';
 import { Box, Button, Stack, Text, Tooltip } from '@commercetools/nimbus';

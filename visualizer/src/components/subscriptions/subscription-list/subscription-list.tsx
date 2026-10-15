@@ -1,9 +1,3 @@
-/*
- * SPDX-License-Identifier: MIT
- * Copyright (c) 2026 commercetools GmbH and the commercetools-labs contributors
- * Freely available, AS IS and UNSUPPORTED. See LICENSE.
- */
-
 import { PageNotFound } from '@commercetools-frontend/application-components';
 import { useIntl } from 'react-intl';
 import { useHistory, useLocation } from 'react-router-dom';

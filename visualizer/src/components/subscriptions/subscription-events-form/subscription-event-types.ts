@@ -1,9 +1,3 @@
-/*
- * SPDX-License-Identifier: MIT
- * Copyright (c) 2026 commercetools GmbH and the commercetools-labs contributors
- * Freely available, AS IS and UNSUPPORTED. See LICENSE.
- */
-
 // Event types a Subscription can listen to, grouped by the `EventSubscriptionResourceTypeId`
 // they are subscribed under — keep in sync with `EventType` / `EventSubscriptionResourceTypeId`:
 // https://docs.commercetools.com/api/projects/subscriptions#eventtype

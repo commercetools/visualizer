@@ -1,9 +1,3 @@
-/*
- * SPDX-License-Identifier: MIT
- * Copyright (c) 2026 commercetools GmbH and the commercetools-labs contributors
- * Freely available, AS IS and UNSUPPORTED. See LICENSE.
- */
-
 // `StateTypeEnum` — the resource types a State can be assigned to:
 // https://docs.commercetools.com/api/projects/states#statetypeenum
 export const STATE_TYPES = [

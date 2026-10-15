@@ -1,9 +1,3 @@
-/*
- * SPDX-License-Identifier: MIT
- * Copyright (c) 2026 commercetools GmbH and the commercetools-labs contributors
- * Freely available, AS IS and UNSUPPORTED. See LICENSE.
- */
-
 // Captures the README/docs screenshots against a locally running dev server,
 // reusing the session saved by login.mjs. Requires real data to exist in each
 // feature area (a state, a subscription, a type, an extension, a custom object
