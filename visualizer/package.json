@@ -21,6 +21,8 @@
     "versions:test-data": "manypkg upgrade @commercetools-test-data",
     "generate-types:ctp": "node ./scripts/login.js && graphql-codegen -r ./scripts/load-env.js --config codegen.ctp.yml",
     "generate-types:chakra": "chakra typegen node_modules/@commercetools/nimbus/dist/theme.es.js",
+    "connector:post-deploy": "node -e \"console.log('post-deploy: nothing to configure')\"",
+    "connector:pre-undeploy": "node -e \"console.log('pre-undeploy: nothing to clean up')\"",
     "postinstall": "npm run generate-types:chakra"
   },
   "dependencies": {

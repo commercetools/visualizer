@@ -1,6 +1,9 @@
 deployAs:
   - name: visualizer
     applicationType: merchant-center-custom-application
+    scripts:
+      postDeploy: npm run connector:post-deploy
+      preUndeploy: npm run connector:pre-undeploy
     configuration:
       standardConfiguration:
         - key: CUSTOM_APPLICATION_ID
