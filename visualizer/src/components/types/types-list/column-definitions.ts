@@ -43,11 +43,17 @@ const createColumnDefinitions = ({
   {
     id: 'resourceTypeIds',
     header: intl.formatMessage(messages.columnResourceTypeIds),
+    // Not a sortable API field (it is an array), and an unset `isSortable`
+    // inherits the table-level `allowsSorting`, which would make the header
+    // clickable and send an invalid `sort` to the API.
+    isSortable: false,
     accessor: (row) => row.resourceTypeIds.join(', '),
   },
   {
     id: 'fieldCount',
     header: intl.formatMessage(messages.columnFieldCount),
+    // Derived from `fieldDefinitions`; there is no such API field to sort on.
+    isSortable: false,
     accessor: (row) => row.fieldDefinitions.length,
   },
   {

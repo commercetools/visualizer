@@ -69,6 +69,21 @@ describe('types list column definitions', () => {
     ).toEqual(['name', 'description', 'key', 'createdAt', 'lastModifiedAt']);
   });
 
+  // The table is rendered with `allowsSorting`, and Nimbus treats an *unset*
+  // `isSortable` as "inherit that" — so a column that cannot be sorted by the
+  // API has to opt out explicitly, or clicking its header sends an invalid
+  // `sort` and the request fails with a 400.
+  it('explicitly opts the non-API columns out of sorting', () => {
+    expect(col('resourceTypeIds').isSortable).toBe(false);
+    expect(col('fieldCount').isSortable).toBe(false);
+  });
+
+  it('declares isSortable on every column', () => {
+    build().forEach((c) => {
+      expect(typeof c.isSortable).toBe('boolean');
+    });
+  });
+
   it('localizes name by the data locale', () => {
     expect(value('name', 'en')).toBe('English');
     expect(value('name', 'de')).toBe('Deutsch');
