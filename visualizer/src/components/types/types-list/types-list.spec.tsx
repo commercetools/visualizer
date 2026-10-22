@@ -291,6 +291,41 @@ describe('requests', () => {
     fireEvent.click(screen.getByRole('columnheader', { name: /^name/i }));
     await waitFor(() => expect(sorts).toContainEqual(['name asc']));
   });
+
+  // `resourceTypeIds` and `fieldCount` are not sortable API fields, so their
+  // headers must not be sort controls — clicking one used to send
+  // `sort: ['resourceTypeIds asc']` and fail the request with a 400.
+  it.each([
+    ['Resource Types', /^resource types/i],
+    ['Fields', /^fields/i],
+  ])('does not sort by the %s column', async (_label, headerPattern) => {
+    const sorts: unknown[] = [];
+    mockServer.use(
+      graphql.query('FetchTypes', (req, res, ctx) => {
+        sorts.push(req.variables.sort);
+        return res(
+          ctx.data({
+            typeDefinitions: {
+              __typename: 'TypeDefinitionQueryResult',
+              total: 1,
+              count: 1,
+              offset: 0,
+              results: [buildTypeDefinition({ key: 'type-one' })],
+            },
+          })
+        );
+      })
+    );
+    renderApp();
+    await screen.findByText('type-one');
+
+    const header = screen.getByRole('columnheader', { name: headerPattern });
+    expect(header).not.toHaveAttribute('aria-sort');
+    fireEvent.click(header);
+
+    await waitFor(() => expect(screen.getByText('type-one')).toBeVisible());
+    expect(sorts).toEqual([['key asc']]);
+  });
 });
 
 describe('navigation', () => {
